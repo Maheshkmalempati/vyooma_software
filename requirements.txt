@@ -1,11 +1,23 @@
+# Core Framework
 fastapi
-uvicorn
+uvicorn[standard]
+
+# Database
 sqlalchemy
+psycopg2-binary
+alembic
+
+# Data Validation & Schemas
 pydantic
+pydantic[email]
+
+# Authentication & Security
 python-jose[cryptography]
 passlib[bcrypt]
+
+# Utilities
 python-multipart
-mysql-connector-python
-pymysql
-psycopg2-binary
 python-dotenv
+
+# supabase
+# alembic

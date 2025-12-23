@@ -29,6 +29,14 @@ class InspectionResponse(InspectionCreate):
     status: str
     created_at: datetime
     package: str
+    
+    # New analysis and workflow fields
+    analysis_status: str
+    assigned_at: Optional[datetime] = None
+    started_at: Optional[datetime] = None
+    completed_at: Optional[datetime] = None
+    raw_images_path: Optional[str] = None
+    processed_images_path: Optional[str] = None
 
     model_config = {
         "from_attributes": True

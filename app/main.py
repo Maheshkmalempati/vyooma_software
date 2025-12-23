@@ -10,8 +10,17 @@ from app.auth import hash_password, verify_password, pwd_context
 from app.models import User, Inspection, Report
 from pydantic import BaseModel
 
+# Import new routers
+from app.routers import auth as auth_router
+from app.routers import inspections as inspections_router
+from app.routers import reports as reports_router
+
 # 1️⃣ Create FastAPI app
-app = FastAPI(title="Drone Inspection Backend")
+app = FastAPI(
+    title="Vyooma Drone Inspection API",
+    description="Production-ready backend for drone inspection management",
+    version="1.0.0"
+)
 
 # Allow CORS for Frontend
 origins = [
@@ -29,10 +38,25 @@ app.add_middleware(
 # 2️⃣ Create tables in DB
 Base.metadata.create_all(bind=engine)
 
-# 3️⃣ Test route
+# 📡 Include API Routers (V1 with /api/v1 prefix)
+app.include_router(auth_router.router, prefix="/api/v1/auth", tags=["Authentication"])
+app.include_router(inspections_router.router, prefix="/api/v1/inspections", tags=["Inspections"])
+app.include_router(reports_router.router, prefix="/api/v1/reports", tags=["Reports"])
+
+# 3️⃣ Health check route
 @app.get("/")
 def root():
-    return {"message": "Backend running successfully"}
+    return {
+        "message": "Vyooma Drone Inspection API",
+        "version": "1.0.0",
+        "status": "running",
+        "docs": "/docs"
+    }
+
+# ⚠️ LEGACY ENDPOINTS (Backward Compatibility)
+# These endpoints are kept for existing clients during migration period
+# New clients should use /api/v1/* endpoints with JWT authentication
+# TODO: Deprecate after frontend migration is complete
 
 # Login Schema
 class LoginRequest(BaseModel):
