@@ -1,0 +1,14 @@
+YOLOv8 Image Classification(80:20)
+split_dataset/
+ ├── train/
+ │    ├── Bird_dropping/
+ │    ├── Clean/
+ │    ├── Dust/
+ │    ├── Electrical/
+ │    └── Physical/
+ └── val/
+      ├── Bird_dropping/
+      ├── Clean/
+      ├── Dust/
+      ├── Electrical/
+      └── Physical/
